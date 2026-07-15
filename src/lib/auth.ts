@@ -1,7 +1,7 @@
 import NextAuth, { DefaultSession } from "next-auth"
 import Credentials from "next-auth/providers/credentials"
 import bcrypt from "bcryptjs"
-import { prisma } from "./prisma"
+import { getSql } from "./neon"
 
 declare module "next-auth" {
   interface User {
@@ -36,12 +36,20 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         try {
           if (!credentials?.email || !credentials?.password) return null
 
-          const user = await prisma.user.findUnique({
-            where: { email: credentials.email as string },
-          })
+          const sql = getSql()
+          const rows = await sql`
+            SELECT id, email, name, role, password FROM users WHERE email = ${credentials.email}
+          `
 
-          if (!user || !user.password) {
-            console.error("Auth: user not found or missing password hash")
+          if (!rows || rows.length === 0) {
+            console.error("Auth: user not found", credentials.email)
+            return null
+          }
+
+          const user = rows[0] as { id: string; email: string; name: string | null; role: string; password: string | null }
+
+          if (!user.password) {
+            console.error("Auth: missing password hash for", credentials.email)
             return null
           }
 
