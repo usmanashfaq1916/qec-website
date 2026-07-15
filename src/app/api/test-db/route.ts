@@ -1,29 +1,38 @@
 import { NextResponse } from "next/server"
+import { neon } from "@neondatabase/serverless"
 import { prisma } from "@/lib/prisma"
 
 export async function GET() {
+  const dbUrl = process.env.DATABASE_URL
   const envCheck = {
-    hasDbUrl: !!process.env.DATABASE_URL,
-    dbUrlPrefix: process.env.DATABASE_URL?.substring(0, 20),
+    hasDbUrl: !!dbUrl,
+    dbUrlPrefix: dbUrl?.substring(0, 30),
+    dbUrlLength: dbUrl?.length,
     hasAuthSecret: !!process.env.AUTH_SECRET,
     nodeEnv: process.env.NODE_ENV,
   }
 
+  if (!dbUrl) {
+    return NextResponse.json({ success: false, error: "DATABASE_URL not set", env: envCheck })
+  }
+
+  // Test using Neon native HTTP driver
   try {
-    const users = await prisma.user.findMany({
-      select: { id: true, email: true, name: true, role: true },
-    })
+    const sql = neon(dbUrl)
+    const neonResult = await sql`SELECT id, email, name, role FROM users LIMIT 2`
     return NextResponse.json({
       success: true,
-      userCount: users.length,
-      users: users.map((u) => ({ email: u.email, name: u.name, role: u.role })),
+      method: "neon-http",
+      userCount: neonResult.length,
+      users: neonResult,
       env: envCheck,
     })
-  } catch (err) {
+  } catch (neonErr) {
     return NextResponse.json({
       success: false,
-      error: err instanceof Error ? err.message : String(err),
-      stack: err instanceof Error ? err.stack : undefined,
+      method: "neon-http",
+      error: neonErr instanceof Error ? neonErr.message : String(neonErr),
+      errorName: neonErr instanceof Error ? neonErr.name : typeof neonErr,
       env: envCheck,
     })
   }
