@@ -59,7 +59,7 @@ export default function Home() {
               className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-accent/10 text-accent text-sm font-medium mb-6"
             >
               <GraduationCap className="h-4 w-4" />
-              Established 2006
+              Established 2002
             </motion.div>
             <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold tracking-tight text-foreground leading-tight">
               Quaid Educational Complex

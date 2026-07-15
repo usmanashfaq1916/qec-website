@@ -25,7 +25,7 @@ export default function About() {
       >
         <h1 className="text-4xl sm:text-5xl font-bold text-foreground">About Quaid Educational Complex</h1>
         <p className="mt-4 text-lg text-muted max-w-3xl mx-auto">
-          A premier educational institution dedicated to building future leaders through quality education since 2006.
+          A premier educational institution dedicated to building future leaders through quality education since 2002.
         </p>
       </motion.div>
 
