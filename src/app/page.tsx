@@ -273,7 +273,7 @@ export default function Home() {
               Apply Online
             </Link>
             <a
-              href="https://wa.me/923XXXXXXXXX"
+              href="https://wa.me/923244776493"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-8 py-3.5 rounded-lg bg-accent text-white font-semibold hover:bg-accent-light transition-all hover:shadow-lg hover:shadow-accent/25"

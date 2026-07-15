@@ -42,7 +42,7 @@ export default function About() {
           <h2 className="text-2xl font-bold text-foreground">Our History</h2>
         </div>
         <p className="text-muted leading-relaxed">
-          Quaid Educational Complex (QEC) was established in 2006 with a vision to provide quality education
+          Quaid Educational Complex (QEC) was established in 2002 with a vision to provide quality education
           to the youth of Lahore and beyond. Starting from a single campus, QEC has grown into a prestigious
           educational network with five campuses across Lahore, serving over 10,000 students. Our journey
           has been marked by a steadfast commitment to academic excellence, character building, and holistic

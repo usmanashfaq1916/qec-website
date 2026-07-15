@@ -15,7 +15,7 @@ export function Footer() {
               Quaid Educational Complex — Building Future Leaders Through Quality Education.
             </p>
             <a
-              href="https://wa.me/923XXXXXXXXX"
+              href="https://wa.me/923244776493"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-accent text-white text-sm font-medium hover:bg-accent-light transition-colors"
